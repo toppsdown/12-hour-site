@@ -1,3 +1,4 @@
+@import "0-tools/fonts";
 @import "0-tools/normalize";
 @import "0-tools/bourbon/bourbon";
 
@@ -6,7 +7,17 @@
 @import "1-base/links";
 @import "1-base/selection-colors";
 @import "1-base/typography";
+@import "1-base/constants";
+
+@import "2-modules/header";
+
+@import "3-layouts/home";
 
 body {
-  background-color: blue;
+  background-color: $main-background;
 }
+
+a {
+  color: $link-color;
+}
+

@@ -4,6 +4,7 @@ var sass        = require('gulp-sass');
 var prefix      = require('gulp-autoprefixer');
 var cp          = require('child_process');
 var jade        = require('gulp-jade');
+var plumber     = require('gulp-plumber');
 
 var jekyll   = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
 var messages = {
@@ -42,13 +43,16 @@ gulp.task('browser-sync', ['sass', 'jekyll-build'], function() {
  */
 gulp.task('sass', function () {
     return gulp.src('assets/css/main.scss')
+        .pipe(plumber())
         .pipe(sass({
             includePaths: ['css'],
-            onError: browserSync.notify
+            onError: browserSync.notify,
+            errLogToConsole: true
         }))
         .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(gulp.dest('_site/assets/css'))
         .pipe(browserSync.reload({stream:true}))
+        .pipe(gulp.dest('assets/css'))
 });
 
 
@@ -66,7 +70,7 @@ gulp.task('jade', function(){
  * Watch html/md files, run jekyll & reload BrowserSync
  */
 gulp.task('watch', function () {
-    gulp.watch('assets/css/**.scss', ['sass']);
+    gulp.watch('assets/css/**/*.*', ['sass']);
     gulp.watch(['*.html', '_layouts/*.html', '_includes/*'], ['jekyll-rebuild']);
     gulp.watch('_jadefiles/*.jade', ['jade'])
 });
