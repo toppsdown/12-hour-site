@@ -46,9 +46,8 @@ gulp.task('sass', function () {
         .pipe(plumber())
         .pipe(sass({
             includePaths: ['css'],
-            onError: browserSync.notify,
-            errLogToConsole: true
-        }))
+            onError: browserSync.notify
+        }).on('error', sass.logError))
         .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(gulp.dest('_site/assets/css'))
         .pipe(browserSync.reload({stream:true}))
@@ -61,6 +60,7 @@ gulp.task('sass', function () {
  */
 gulp.task('jade', function(){
     return gulp.src('_jadefiles/*.jade')
+    .pipe(plumber())
     .pipe(jade())
     .pipe(gulp.dest('_includes'));
 })
