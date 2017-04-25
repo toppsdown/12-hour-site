@@ -29,7 +29,6 @@
 .col-1
   max-width: 300px
   margin: 0 10px
-  background: pink
 
 
 .col-2
@@ -41,6 +40,9 @@
   width: 50%
   background: red
 
+.push-left
+  margin-right: 330px  // calculated based on column width + margins
+
 @media (max-width: 640px)
   .home-sections .flex
     display: block
@@ -50,3 +52,12 @@
 
   .col-half
     width: auto
+
+  .push-left
+    margin-right: 10px
+
+
+// Typography
+.home-lead
+  font-size: 36px
+  line-height: 1.1
